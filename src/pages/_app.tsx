@@ -1,4 +1,4 @@
-import GlobolStyle from "../styles/GlobolStyle";
+import GlobolStyle from "@/styles/GlobolStyle";
 
 export default function MyApp({ Component, pageProps }) {
   return(

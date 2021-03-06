@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import { route } from "next/dist/next-server/server/router";
 import { useRouter } from 'next/router';
 
 interface IProduct {
@@ -12,6 +13,16 @@ interface CategoryProps {
 
 export default function Category({ products }: CategoryProps) {
     const router = useRouter();
+
+    /**
+     * When the fallback = true
+     * If the user is on the page, and a new post occurs, it makes the user wait for 
+     * a while until they get a new request
+     */
+    if(router.isFallback){
+        return <p>carregando...</p>
+    }
+
     return (
         <div>
             <h1>{router.query.slug}</h1>
@@ -43,7 +54,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
         paths,
-        fallback: false
+        fallback: true //this props verify if page was generated, case no, he do generate new page
     }
 }
 
